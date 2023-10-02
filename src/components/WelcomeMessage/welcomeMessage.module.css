@@ -1,0 +1,13 @@
+.welcomeMessage h1 {
+  font-size: 48px;
+  font-weight: 500;
+}
+
+.welcomeMessage h1 span {
+  color: #ff0101;
+}
+
+.welcomeMessage p {
+  font-size: 18px;
+  font-weight: 400;
+}
