@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // Custom hook for fetching data from a URL
-export function useFetch(url) {
+export function useFetch(urlOrFunction, userId) {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -12,19 +12,20 @@ export function useFetch(url) {
 
     async function fetchData() {
       try {
-        const response = await fetch(url);
-        if (response.ok) {
-          const data = await response.json();
-          if (isMounted) {
-            setData(data);
-          }
+        let response;
+        if (typeof urlOrFunction === 'function') {
+          response = await urlOrFunction(userId);
         } else {
-          throw new Error('Network response was not ok');
+          const fetchResponse = await fetch(urlOrFunction);
+          response = await fetchResponse.json();
+        }
+        if (isMounted) {
+          setData(response.data);
         }
       } catch (err) {
         console.log(err);
         if (isMounted) {
-          setError(true);
+          setError(err.message);
         }
       } finally {
         if (isMounted) {
@@ -39,7 +40,7 @@ export function useFetch(url) {
     return () => {
       isMounted = false;
     };
-  }, [url]);
+  }, [urlOrFunction, userId]);
 
   return { data, isLoading, error };
 }
