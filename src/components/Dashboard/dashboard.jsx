@@ -9,7 +9,7 @@ import styles from './dashboard.module.css';
 
 export function Dashboard() {
   const { data, isLoading, error } = useFetch(getUser, 1);
-  console.log(data);
+  // console.log(data);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -22,10 +22,10 @@ export function Dashboard() {
       <PerformanceCard />
       <PerformanceCard />
       <PerformanceCard />
-      <MacroCard title='Calories' count={calorieCount} />
-      <MacroCard title='Protéines' count={proteinCount} />
-      <MacroCard title='Glucides' count={carbohydrateCount} />
-      <MacroCard title='Lipides' count={lipidCount} />
+      <MacroCard className={styles.macroCard} title='Calories' count={calorieCount} />
+      <MacroCard className={styles.macroCard} title='Protéines' count={proteinCount} />
+      <MacroCard className={styles.macroCard} title='Glucides' count={carbohydrateCount} />
+      <MacroCard className={styles.macroCard} title='Lipides' count={lipidCount} />
     </div>
   );
 }

@@ -1,13 +1,13 @@
-.welcomeMessage h1 {
+.welcomeMessageCard h1 {
   font-size: 48px;
   font-weight: 500;
 }
 
-.welcomeMessage h1 span {
+.welcomeMessageCard h1 span {
   color: #ff0101;
 }
 
-.welcomeMessage p {
+.welcomeMessageCard p {
   font-size: 18px;
   font-weight: 400;
 }

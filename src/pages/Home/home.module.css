@@ -4,3 +4,10 @@
   width: 90%;
   margin: 2% 15%;
 }
+
+.welcomeMessage {
+  width: calc(396 / 1440 * 100vw);
+  height: calc(89 / 1024 * 100vh);
+  margin-top: calc(159 / 1024 * 100vh);
+  margin-left: calc(224 / 1440 * 100vw);
+}

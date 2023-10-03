@@ -1,8 +1,42 @@
+.macroCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: calc(258 / 1440 * 100vw);
+  height: calc(124 / 1024 * 100vh);
+  margin-bottom: calc(39 / 1024 * 100vh);
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 6px;
+}
+
 .icone {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 60px;
+  margin-left: calc(32 / 1440 * 100vw);
+  width: calc(60 / 1440 * 100vw);
+  height: calc(60 / 1024 * 100vh);
   border-radius: 6px;
+}
+@media only screen and (min-width: 1920px) {
+  .icone {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.macroInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: calc(24 / 1440 * 100vw);
+}
+
+.count {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.entitled {
+  font-size: 14px;
+  font-weight: 500;
 }
