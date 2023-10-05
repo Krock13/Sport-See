@@ -1,13 +1,18 @@
+/**
+ * Custom React hook for fetching data.
+ * @param {string|function} urlOrFunction - The URL to fetch from or a function that returns data.
+ * @param {number} userId - The user ID for fetching user-specific data.
+ * @returns {object} An object containing the fetched data, loading status, and any error message.
+ */
 import { useState, useEffect } from 'react';
 
-// Custom hook for fetching data from a URL
 export function useFetch(urlOrFunction, userId) {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    let isMounted = true; // Track component mount status
+    let isMounted = true; // To prevent state update after the component has been unmounted
     setLoading(true);
 
     async function fetchData() {

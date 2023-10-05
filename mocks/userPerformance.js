@@ -1,3 +1,8 @@
+/**
+ * Mock data for user performance information.
+ */
+
+// Mock data for user performance with ID 1
 const user1 = {
   userId: 1,
   kind: {
@@ -36,6 +41,7 @@ const user1 = {
   ],
 };
 
+// Mock data for user performance with ID 2
 const user2 = {
   userId: 2,
   kind: {
@@ -74,6 +80,11 @@ const user2 = {
   ],
 };
 
+/**
+ * Simulates fetching user performance data based on user ID.
+ * @param {number} userId - The ID of the user.
+ * @returns {Promise} - Resolves with the user performance data or rejects with an error.
+ */
 export const getUserPerformance = (userId) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -87,6 +98,6 @@ export const getUserPerformance = (userId) => {
         default:
           reject(new Error('Utilisateur non trouvé'));
       }
-    }, 300); // Simule un délai pour rendre l'expérience plus réaliste
+    }, 300); // Simulates a delay to make the experience more realistic
   });
 };

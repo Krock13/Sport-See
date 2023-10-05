@@ -1,3 +1,8 @@
+/**
+ * Mock data for user information.
+ */
+
+// Mock data for user with ID 1
 const user1 = {
   id: 1,
   userInfos: {
@@ -14,6 +19,7 @@ const user1 = {
   },
 };
 
+// Mock data for user with ID 2
 const user2 = {
   id: 2,
   userInfos: {
@@ -30,6 +36,11 @@ const user2 = {
   },
 };
 
+/**
+ * Simulates fetching user data based on user ID.
+ * @param {number} userId - The ID of the user.
+ * @returns {Promise} - Resolves with the user data or rejects with an error.
+ */
 export const getUser = (userId) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -43,6 +54,6 @@ export const getUser = (userId) => {
         default:
           reject(new Error('Utilisateur non trouvé'));
       }
-    }, 300); // Simule un délai pour rendre l'expérience plus réaliste
+    }, 300); // Simulates a delay to make the experience more realistic
   });
 };

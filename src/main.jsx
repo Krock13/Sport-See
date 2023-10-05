@@ -1,3 +1,7 @@
+/**
+ * @file Main entry point for the React application.
+ */
+
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -8,7 +12,7 @@ import { Home } from './pages/Home/home';
 
 import './utils/style/globalStyle.css';
 
-// Render the app in the root element
+// Initialize and render the React application
 ReactDOM.createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router>
