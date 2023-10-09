@@ -1,13 +1,14 @@
 .home {
   display: flex;
   flex-direction: column;
-  width: 90%;
-  margin: 2% 15%;
+  width: 1126px;
+  height: 779px;
+  margin: 55px 90px 86px 224px;
 }
 
 .welcomeMessage {
-  width: calc(396 / 1440 * 100vw);
-  height: calc(89 / 1024 * 100vh);
-  margin-top: calc(159 / 1024 * 100vh);
-  margin-left: calc(224 / 1440 * 100vw);
+  max-width: 396px;
+  max-height: 89px;
+  margin: 0;
+  padding: 0;
 }

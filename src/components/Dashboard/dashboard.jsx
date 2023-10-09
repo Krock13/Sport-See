@@ -33,17 +33,23 @@ export function Dashboard() {
   return (
     <div className={styles.dashboard}>
       {/* Render Fitness Evolution Card */}
-      <FitnessEvolutionCard />
+      <div className={styles.fitnessEvolutionCard}>
+        <FitnessEvolutionCard />
+      </div>
 
       {/* Render Performance Cards */}
-      <PerformanceCard />
-      <PerformanceCard />
-      <PerformanceCard />
+      <div className={styles.performanceCards}>
+        <PerformanceCard />
+        <PerformanceCard />
+        <PerformanceCard />
+      </div>
 
       {/* Render Macro Cards */}
-      {macroData.map((macro, index) => (
-        <MacroCard key={index} {...macro} data={data.keyData} />
-      ))}
+      <div className={styles.macroCards}>
+        {macroData.map((macro, index) => (
+          <MacroCard key={index} {...macro} data={data.keyData} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -34,7 +34,7 @@ header {
   position: absolute;
   top: calc(18 / 1024 * 100vh);
   left: calc(28 / 1440 * 100vw);
-  width: calc(200 / 1440 * 100vw);
+  width: calc(178 / 1440 * 100vw);
   height: auto;
   max-width: 200px;
   min-width: 100px;

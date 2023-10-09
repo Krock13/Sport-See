@@ -1,4 +1,45 @@
 .dashboard {
-  width: 850px;
-  height: 500px;
+  display: grid;
+  grid-template-columns: 835px 258px;
+  grid-template-rows: 320px 263px;
+  gap: 0px 0px;
+  width: 1124px;
+  height: 611px;
+  margin-top: 77px;
+}
+
+.fitnessEvolutionCard {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  width: 835px;
+  height: 320px;
+}
+
+.performanceCards {
+  display: flex;
+  justify-content: space-between;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  width: 835px;
+  height: 263px;
+}
+
+.performanceCard {
+  width: 258px;
+  height: 263px;
+}
+
+.macroCards {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  width: 258px;
+  height: 613px;
+}
+
+.macroCard {
+  width: 258px;
+  height: 124px;
 }

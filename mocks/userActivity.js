@@ -33,13 +33,28 @@ const user1 = {
     },
     {
       day: '2023-02-06',
-      kilogram: 83,
+      kilogram: 84,
       calories: 182,
     },
     {
       day: '2023-02-07',
-      kilogram: 81,
-      calories: 420,
+      kilogram: 85,
+      calories: 350,
+    },
+    {
+      day: '2023-02-08',
+      kilogram: 86,
+      calories: 220,
+    },
+    {
+      day: '2023-02-09',
+      kilogram: 85,
+      calories: 340,
+    },
+    {
+      day: '2023-02-10',
+      kilogram: 84,
+      calories: 250,
     },
   ],
 };
