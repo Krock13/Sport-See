@@ -12,44 +12,44 @@ import { getUser } from '../../../mocks/user.js';
 import { macroData } from '../../utils/constants/macroData';
 
 // Components
-import { FitnessEvolutionCard } from '../FitnessEvolutionCard/fitnessEvolutionCard';
-import { PerformanceCard } from '../PerformanceCard/performanceCard';
-import { MacroCard } from '../MacroCard/macroCard';
+import { FitnessEvolutionCard } from '../FitnessEvolutionCard/FitnessEvolutionCard';
+import { PerformanceCard } from '../PerformanceCard/PerformanceCard';
+import { MacroCard } from '../MacroCard/MacroCard';
 
 // Styles
 import styles from './dashboard.module.css';
 
 export function Dashboard() {
   // Fetch user data
-  const { data, isLoading, error } = useFetch(getUser, 1);
-
-  // Loading state
-  if (isLoading) return <p>Loading...</p>;
-
-  // Error state
-  if (error) return <p>Error: {error}</p>;
+  const { data, loadingAndErrorComponent } = useFetch(getUser, 1);
 
   // Render dashboard
   return (
     <div className={styles.dashboard}>
-      {/* Render Fitness Evolution Card */}
-      <div className={styles.fitnessEvolutionCard}>
-        <FitnessEvolutionCard />
-      </div>
+      {loadingAndErrorComponent}
 
-      {/* Render Performance Cards */}
-      <div className={styles.performanceCards}>
-        <PerformanceCard />
-        <PerformanceCard />
-        <PerformanceCard />
-      </div>
+      {Object.keys(data).length > 0 && (
+        <>
+          {/* Render Fitness Evolution Card */}
+          <div className={styles.fitnessEvolutionCard}>
+            <FitnessEvolutionCard />
+          </div>
 
-      {/* Render Macro Cards */}
-      <div className={styles.macroCards}>
-        {macroData.map((macro, index) => (
-          <MacroCard key={index} {...macro} data={data.keyData} />
-        ))}
-      </div>
+          {/* Render Performance Cards */}
+          <div className={styles.performanceCards}>
+            <PerformanceCard />
+            <PerformanceCard />
+            <PerformanceCard />
+          </div>
+
+          {/* Render Macro Cards */}
+          <div className={styles.macroCards}>
+            {macroData.map((macro, index) => (
+              <MacroCard key={index} {...macro} data={data.keyData} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

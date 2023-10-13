@@ -1,5 +1,5 @@
 .welcomeMessageCard h1 {
-  font-size: 48px;
+  font-size: calc(48 * 100vw / 1440);
   font-weight: 500;
   margin: 0;
 }
@@ -9,6 +9,6 @@
 }
 
 .welcomeMessageCard p {
-  font-size: 18px;
+  font-size: calc(18 * 100vw / 1440);
   font-weight: 400;
 }

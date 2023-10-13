@@ -37,6 +37,7 @@ export function MacroCard({ title, dataKey, src, alt, bgColor, unit, data }) {
   );
 }
 
+// PropTypes for MacroCard component
 MacroCard.propTypes = {
   title: PropTypes.string.isRequired,
   dataKey: PropTypes.string.isRequired,

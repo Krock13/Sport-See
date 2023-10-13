@@ -1,14 +1,15 @@
 .home {
   display: flex;
   flex-direction: column;
-  width: 1126px;
-  height: 779px;
-  margin: 55px 90px 86px 224px;
+  width: calc(100vw * 1126 / 1440);
+  height: calc(100vh * 779 / 1024);
+  margin: calc(100vh * 55 / 1024) calc(100vw * 90 / 1440) calc(100vh * 86 / 1024)
+    calc(100vw * 224 / 1440);
 }
 
 .welcomeMessage {
-  max-width: 396px;
-  max-height: 89px;
+  max-width: calc(100vw * 396 / 1440);
+  max-height: calc(100vh * 89 / 1024);
   margin: 0;
   padding: 0;
 }

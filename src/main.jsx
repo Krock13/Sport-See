@@ -6,9 +6,9 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { Header } from './components/Header/header';
-import { Sidebar } from './components/Sidebar/sidebar';
-import { Home } from './pages/Home/home';
+import { Header } from './components/Header/Header';
+import { Sidebar } from './components/Sidebar/Sidebar';
+import { Home } from './pages/Home/Home';
 
 import './utils/style/globalStyle.css';
 
