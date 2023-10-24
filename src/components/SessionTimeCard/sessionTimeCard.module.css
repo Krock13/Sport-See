@@ -18,3 +18,13 @@
   left: calc(34 * 100vw / 1440);
   z-index: 2;
 }
+
+.sessionTimeCardTooltip {
+  background-color: #fff;
+  padding: 2px;
+  font-size: calc(8 * 100vw / 1440);
+  width: calc(39 / 1440 * 100vw);
+  height: calc(25 / 1024 * 100vh);
+  text-align: center;
+  line-height: calc(24 / 1024 * 100vh);
+}
