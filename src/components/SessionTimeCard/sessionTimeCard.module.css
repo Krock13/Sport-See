@@ -1,0 +1,20 @@
+.sessionTimeCard {
+  position: relative;
+  width: calc(258 / 1440 * 100vw);
+  height: calc(263 / 1024 * 100vh);
+  border-radius: 5px;
+  background-color: rgba(255, 0, 0, 1);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.sessionTimeCardTitle {
+  position: absolute;
+  font-size: calc(15 * 100vw / 1440);
+  color: white;
+  opacity: 50.4%;
+  max-width: calc(148 / 1440 * 100vw);
+  top: calc(29 * 100vh / 1024);
+  left: calc(34 * 100vw / 1440);
+  z-index: 2;
+}

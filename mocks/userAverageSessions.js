@@ -16,23 +16,23 @@ const user1 = {
     },
     {
       day: 3,
-      sessionLength: 48,
+      sessionLength: 32,
     },
     {
       day: 4,
-      sessionLength: 55,
+      sessionLength: 40,
     },
     {
       day: 5,
-      sessionLength: 5,
+      sessionLength: 24,
     },
     {
       day: 6,
-      sessionLength: 10,
+      sessionLength: 18,
     },
     {
       day: 7,
-      sessionLength: 65,
+      sessionLength: 31,
     },
   ],
 };

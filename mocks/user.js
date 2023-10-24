@@ -10,7 +10,7 @@ const user1 = {
     lastName: 'MocklastName1',
     age: 40,
   },
-  todayScore: 0.8,
+  todayScore: 0.4,
   keyData: {
     calorieCount: 2500,
     proteinCount: 180,

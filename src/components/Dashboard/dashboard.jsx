@@ -1,5 +1,6 @@
 /**
  * Dashboard component that displays various cards and information.
+ * @returns {JSX.Element} The rendered JSX element.
  */
 
 // External dependencies
@@ -13,7 +14,9 @@ import { macroData } from '../../utils/constants/macroData';
 
 // Components
 import { FitnessEvolutionCard } from '../FitnessEvolutionCard/FitnessEvolutionCard';
-import { PerformanceCard } from '../PerformanceCard/PerformanceCard';
+import { SessionTimeCard } from '../SessionTimeCard/SessionTimeCard';
+import { IntensityCard } from '../IntensityCard/IntensityCard';
+import { ScoreCard } from '../ScoreCard/ScoreCard';
 import { MacroCard } from '../MacroCard/MacroCard';
 
 // Styles
@@ -37,9 +40,9 @@ export function Dashboard() {
 
           {/* Render Performance Cards */}
           <div className={styles.performanceCards}>
-            <PerformanceCard />
-            <PerformanceCard />
-            <PerformanceCard />
+            <SessionTimeCard />
+            <IntensityCard />
+            <ScoreCard />
           </div>
 
           {/* Render Macro Cards */}

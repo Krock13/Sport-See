@@ -1,6 +1,5 @@
 .fitnessEvolutionCard {
   position: relative;
   background-color: rgba(0, 0, 0, 0.02);
-  border-radius: calc(6 * 100vw / 1440);
-  margin-right: calc(31 * 100vw / 1440);
+  border-radius: 6px;
 }
