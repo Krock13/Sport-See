@@ -45,7 +45,7 @@ export function FitnessEvolutionCard() {
   const { width, height, marginTop, marginRight, marginLeft, marginBottom } = calculateDimensions(
     835,
     320,
-    { marginTop: 112, marginRight: 90, marginLeft: 43, marginBottom: 63 }
+    { marginTop: 112, marginRight: 29, marginLeft: 43, marginBottom: 23 }
   );
 
   return (
@@ -65,10 +65,11 @@ export function FitnessEvolutionCard() {
               left: marginLeft,
               bottom: marginBottom,
             }}
+            barGap='12%'
           >
             <CartesianGrid vertical={false} strokeDasharray='2 4' stroke='#dedede' />
             <Tooltip content={<CustomTooltip />} />
-            <XAxis dataKey='day' dy={15.5} tickLine={false} axisLine={false} />
+            <XAxis dataKey='day' dy={15.5} tickLine={false} axisLine={false} fontSize='14px' />
             <YAxis
               yAxisId='right'
               orientation='right'
@@ -77,6 +78,7 @@ export function FitnessEvolutionCard() {
               axisLine={false}
               domain={[minKg - 1, maxKg + 1]}
               ticks={[minKg - 1, middleValue, maxKg + 1]}
+              fontSize='14px'
             />
             <YAxis yAxisId='left' orientation='left' hide={true} />
             <Bar
