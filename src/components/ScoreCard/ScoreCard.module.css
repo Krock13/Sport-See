@@ -8,10 +8,10 @@
 }
 
 .titleScoreCard {
-  margin-left: 30px;
-  margin-top: 24px;
-  margin-bottom: -24px;
-  font-size: 15px;
+  margin-left: calc(30 * 100vw / 1440);
+  margin-top: calc(24 * 100vh / 1024);
+  margin-bottom: calc(-24 * 100vh / 1024);
+  font-size: calc(15 * 100vw / 1440);
 }
 
 .targetContainer {
@@ -22,11 +22,11 @@
 }
 
 .targetPercent {
-  font-size: 24px;
+  font-size: calc(24 * 100vw / 1440);
   text-align: center;
 }
 
 .targetText {
-  font-size: 14px;
+  font-size: calc(14 * 100vw / 1440);
   text-align: center;
 }
