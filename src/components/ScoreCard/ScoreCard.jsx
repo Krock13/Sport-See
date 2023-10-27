@@ -9,7 +9,6 @@ import styles from './scoreCard.module.css';
 
 export function ScoreCard() {
   const { data, loadingAndErrorComponent } = useFetch(getUser, 1);
-  // console.log('data : ', data);
 
   let chartData = [
     {

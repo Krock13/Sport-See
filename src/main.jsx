@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { Header } from './components/Header/Header';
 import { Sidebar } from './components/Sidebar/Sidebar';
+import { SelectionPage } from './pages/SelectionPage/SelectionPage';
 import { Home } from './pages/Home/Home';
 
 import './utils/style/globalStyle.css';
@@ -19,7 +20,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Header />
       <Sidebar />
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<SelectionPage />} />
+        <Route path='/home/:source/:userId' element={<Home />} />
       </Routes>
     </Router>
   </StrictMode>
