@@ -1,33 +1,30 @@
 /**
  * IntensityCard Component
+ * Displays user performance metrics in a radar chart format.
+ * Fetches user performance data and uses the Recharts library to render a radar chart.
+ * Responsively adjusts based on the container's size.
  *
- * This component is responsible for displaying user performance metrics in a radar chart format.
- * It fetches user performance data and renders a radar chart using the Recharts library.
- * The component is responsive and adapts to the container's size, adjusting the radar's radius and font size accordingly.
- *
- * @returns {JSX.Element} The rendered radar chart showcasing user performance metrics.
+ * @returns {JSX.Element} Radar chart showcasing user performance metrics.
  */
 
 // External dependencies
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { useFetch } from '../../utils/hooks/fetch';
+import { useData } from '../../utils/hooks/useData';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 
-// Mock data
-import { getUserPerformance } from '../../../mocks/userPerformance.js';
-
-// Sub-components
+// Components
+import { LoadingAndError } from '../Common/LoadingAndError';
 import TickComponent from './TickComponent';
 
 import styles from './intensityCard.module.css';
 
-// Constants to define the radar chart's geometry and styling
+// Constants for radar chart geometry and styling
 const BASE_RADIUS_PERCENTAGE = 0.39;
 const POLAR_RADII_PERCENTAGES = [0, 0.125, 0.25, 0.5, 0.75, 1];
 const BASE_COMPONENT_WIDTH = 258;
 const BASE_FONT_SIZE = 12;
 
-// Translation mapping for performance metrics
+// Translation for performance metrics
 const translations = {
   intensity: 'Intensité',
   speed: 'Vitesse',
@@ -37,10 +34,12 @@ const translations = {
   cardio: 'Cardio',
 };
 
-// Defined order for displaying the metrics on the radar chart
+// Display order for metrics on the radar chart
 const order = ['Intensité', 'Vitesse', 'Force', 'Endurance', 'Énergie', 'Cardio'];
 
 export function IntensityCard() {
+  const { data: contextData, isLoading, error } = useData();
+
   // Ref to hold the component's DOM reference for size calculations
   const componentRef = useRef(null);
 
@@ -82,36 +81,34 @@ export function IntensityCard() {
     return () => window.removeEventListener('resize', updateComponentDimensions);
   }, []);
 
-  // Fetch the user's performance data
-  const { data, loadingAndErrorComponent } = useFetch(getUserPerformance, 1);
-
   // Transform the performance data for display, and order it
   function transformAndSort(performanceData) {
     const initialData = performanceData.map((item) => {
-      const actualKindString = data.kind[item.kind];
+      const actualKindString = contextData.kind[item.kind];
       return {
         subject: translations[actualKindString],
         score: item.value,
       };
     });
 
-    const sortedData = order.map((subjectInOrder) => {
-      const foundItem = initialData.find((item) => item.subject === subjectInOrder);
-      return foundItem ? foundItem : { subject: subjectInOrder, A: 0 };
-    });
-
-    return sortedData;
+    return order.map(
+      (subjectInOrder) =>
+        initialData.find((item) => item.subject === subjectInOrder) || {
+          subject: subjectInOrder,
+          A: 0,
+        }
+    );
   }
 
   // Transform fetched data for display on the radar chart
-  const { data: fetchedData } = data;
-  const transformedData = fetchedData ? transformAndSort(fetchedData) : [];
+  const transformedData = contextData.data ? transformAndSort(contextData.data) : [];
 
   return (
     // Render the radar chart inside a responsive container
     <div ref={componentRef} className={styles.intensityCard}>
-      {loadingAndErrorComponent}
-      {transformedData.length > 0 && (
+      {isLoading || error ? (
+        <LoadingAndError isLoading={isLoading} error={error} />
+      ) : transformedData.length > 0 ? (
         <>
           <ResponsiveContainer width='100%' height='100%'>
             <RadarChart cx='50%' cy='50%' outerRadius='80%' data={transformedData}>
@@ -125,7 +122,7 @@ export function IntensityCard() {
             </RadarChart>
           </ResponsiveContainer>
         </>
-      )}
+      ) : null}
     </div>
   );
 }

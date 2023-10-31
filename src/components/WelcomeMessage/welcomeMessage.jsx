@@ -1,39 +1,40 @@
 /**
- * WelcomeMessage component that greets the user and shows a congratulatory message.
- * @returns {JSX.Element} The rendered JSX element.
+ * WelcomeMessage Component
+ *
+ * This component greets the user with their first name and shows a congratulatory message.
+ * If the user's name is not available, it defaults to 'Utilisateur'.
+ *
+ * @returns {JSX.Element} The rendered component.
  */
 
 // External dependencies
-import { useFetch } from '../../utils/hooks/fetch';
-
-// Mock data
-import { getUser } from '../../../mocks/user.js';
+import { useData } from '../../utils/hooks/useData';
+import { LoadingAndError } from '../Common/LoadingAndError';
 
 // Styles
 import styles from './welcomeMessage.module.css';
 
 export function WelcomeMessage() {
-  // Fetch user data
-  const { data, loadingAndErrorComponent } = useFetch(getUser, 1);
+  const { data: contextData, isLoading, error } = useData();
 
   // Retrieve first name from the data, default to 'Utilisateur' if not available
-  const firstName = data?.userInfos?.firstName || 'Utilisateur';
+  const firstName = contextData?.userInfos?.firstName || 'Utilisateur';
 
   return (
     <div className={styles.welcomeMessageCard}>
-      {loadingAndErrorComponent}
-
-      {data && Object.keys(data).length > 0 && (
+      {isLoading || error ? (
+        <LoadingAndError isLoading={isLoading} error={error} />
+      ) : contextData && Object.keys(contextData).length > 0 ? (
         <>
           {/* Greeting the user by name */}
           <h1>
             Bonjour <span>{firstName}</span>
           </h1>
 
-          {/* Congratulatory message for achieving goals */}
+          {/* Message to congratulate the user for achieving their goals */}
           <p>Félicitation! Vous avez explosé vos objectifs hier 👏</p>
         </>
-      )}
+      ) : null}
     </div>
   );
 }

@@ -1,5 +1,9 @@
 /**
- * MacroCard component that displays macro-nutrient data.
+ * MacroCard Component
+ *
+ * A component that displays macro-nutrient data in a card format.
+ * It presents the data with an associated icon and title.
+ *
  * @param {Object} props - The component's props.
  * @param {string} props.title - The title of the macro-nutrient.
  * @param {string} props.dataKey - The key to access the data from the data object.
@@ -45,5 +49,7 @@ MacroCard.propTypes = {
   alt: PropTypes.string.isRequired,
   bgColor: PropTypes.string.isRequired,
   unit: PropTypes.string.isRequired,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    [PropTypes.string]: PropTypes.number,
+  }),
 };

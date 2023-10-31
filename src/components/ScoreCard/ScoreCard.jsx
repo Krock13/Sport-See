@@ -1,35 +1,38 @@
 // External dependencies
-import { useFetch } from '../../utils/hooks/fetch';
+import { useData } from '../../utils/hooks/useData';
 import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-// Mock data
-import { getUser } from '../../../mocks/user.js';
+import { LoadingAndError } from '../Common/LoadingAndError';
 
 import styles from './scoreCard.module.css';
 
+/**
+ * ScoreCard Component
+ *
+ * Displays a user's daily score in a pie chart format.
+ * The score represents the user's progress towards their daily goal.
+ */
 export function ScoreCard() {
-  const { data, loadingAndErrorComponent } = useFetch(getUser, 1);
+  const { data: contextData, isLoading, error } = useData();
 
-  let chartData = [
-    {
-      name: 'Score par défaut',
-      value: 0,
-    },
-  ];
+  // Generates chart data based on the user's score.
+  const getChartData = () => {
+    if (!contextData) return [{ name: 'Score par défaut', value: 0 }];
+    const scoreValue = contextData.todayScore || contextData.score;
+    return [{ name: 'Score du jour', value: scoreValue * 100 }];
+  };
 
-  if (data) {
-    chartData = [
-      {
-        name: 'Score du jour',
-        value: data.todayScore * 100,
-      },
-    ];
-  }
+  // Renders loading or error components based on current state.
+  const renderLoadingOrError = () => {
+    return isLoading || error ? <LoadingAndError isLoading={isLoading} error={error} /> : null;
+  };
+
+  const chartData = getChartData();
 
   return (
     <div className={styles.scoreCard}>
-      {loadingAndErrorComponent}
-      {data && (
+      {renderLoadingOrError()}
+      {contextData && (
         <>
           <h3 className={styles.titleScoreCard}>Score</h3>
           <ResponsiveContainer width='100%' height='100%'>

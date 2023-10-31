@@ -7,19 +7,15 @@
  * @returns {JSX.Element} The rendered component.
  */
 
+// Styles
+import styles from './sessionTimeCard.module.css';
+
 // External dependencies
 import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
-// External dependencies
-import { useFetch } from '../../utils/hooks/fetch';
+import { useData } from '../../utils/hooks/useData';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-
-// Mock data
-import { getUserAverageSessions } from '../../../mocks/userAverageSessions.js';
-
-// Styles
-import styles from './sessionTimeCard.module.css';
+import { LoadingAndError } from '../Common/LoadingAndError';
 
 export function SessionTimeCard() {
   // State for controlling the rectangle overlay
@@ -41,8 +37,7 @@ export function SessionTimeCard() {
     }
   }, [rectX, chartMargin]);
 
-  // Fetch user average sessions data
-  const { data, loadingAndErrorComponent } = useFetch(getUserAverageSessions, 1);
+  const { data: contextData, isLoading, error } = useData();
 
   // Helper function to map day numbers to names
   const mapDayToName = (day) => {
@@ -52,7 +47,7 @@ export function SessionTimeCard() {
 
   // Transforming fetched data for chart rendering
   let transformedData =
-    data?.sessions?.map((session) => {
+    contextData?.sessionsAverage?.map((session) => {
       return {
         name: mapDayToName(session.day),
         sessionDuration: session.sessionLength,
@@ -64,8 +59,18 @@ export function SessionTimeCard() {
     if (active && payload && payload.length) {
       return <div className={styles.sessionTimeCardTooltip}>{`${payload[0].value} min`}</div>;
     }
-
     return null;
+  };
+
+  const handleMouseMove = (e) => {
+    if (e && e.activeCoordinate && e.activeCoordinate.x) {
+      setShowRect(true);
+      setRectX(e.activeCoordinate.x);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setShowRect(false);
   };
 
   CustomTooltip.propTypes = {
@@ -80,8 +85,9 @@ export function SessionTimeCard() {
 
   return (
     <div className={styles.sessionTimeCard} ref={chartContainerRef}>
-      {loadingAndErrorComponent}
-      {data && (
+      {isLoading || error ? (
+        <LoadingAndError isLoading={isLoading} error={error} />
+      ) : contextData ? (
         <>
           {/* Chart title */}
           <div className={styles.sessionTimeCardTitle}>Durée moyenne des sessions</div>
@@ -89,13 +95,8 @@ export function SessionTimeCard() {
             <LineChart
               data={transformedData}
               margin={chartMargin}
-              onMouseMove={(e) => {
-                if (e && e.activeCoordinate && e.activeCoordinate.x) {
-                  setShowRect(true);
-                  setRectX(e.activeCoordinate.x);
-                }
-              }}
-              onMouseLeave={() => setShowRect(false)}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
             >
               {/* X and Y Axis styling */}
               <XAxis
@@ -150,7 +151,7 @@ export function SessionTimeCard() {
             </LineChart>
           </ResponsiveContainer>
         </>
-      )}
+      ) : null}
     </div>
   );
 }

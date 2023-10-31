@@ -7,15 +7,15 @@
  * @returns {JSX.Element} The rendered component.
  */
 
-// External dependencies
-import { useFetch } from '../../utils/hooks/fetch';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { useData } from '../../utils/hooks/useData';
 
-// Mock data
-import { getUserActivity } from '../../../mocks/userActivity.js';
+// External dependencies
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 // Utility functions
 import { calculateDimensions } from '../../utils/dimensionsUtils';
+
+import { LoadingAndError } from '../Common/LoadingAndError';
 
 // Sub-components
 import CustomLegend from './CustomLegend';
@@ -25,21 +25,22 @@ import CustomTooltip from './CustomTooltip';
 import styles from './fitnessEvolutionCard.module.css';
 
 export function FitnessEvolutionCard() {
-  // Fetch user activity data
-  const { data, loadingAndErrorComponent } = useFetch(getUserActivity, 1);
+  const { data: contextData, isLoading, error } = useData();
+
+  const { sessionsActivity } = contextData || {};
 
   // Prepare chart data
-  const chartData = (data?.sessions || []).map((session, index) => ({
+  const chartData = (sessionsActivity || []).map((session, index) => ({
     day: index + 1,
     kilogram: session.kilogram,
     calories: session.calories,
   }));
 
   // Calculate min, max, and middle values for Y-axis
-  const allKilograms = chartData?.map((item) => item.kilogram) || [];
-  const minKg = allKilograms.length ? Math.min(...allKilograms) - 5 : 0;
-  const maxKg = allKilograms.length ? Math.max(...allKilograms) + 1 : 0;
-  const middleValue = (minKg + maxKg) / 2;
+  const allKilograms = chartData.map((item) => item.kilogram) || [];
+  const minimumKilogram = allKilograms.length ? Math.min(...allKilograms) - 5 : 0;
+  const maximumKilogram = allKilograms.length ? Math.max(...allKilograms) + 1 : 0;
+  const middleValue = (minimumKilogram + maximumKilogram) / 2;
 
   // Calculate chart dimensions
   const { width, height, marginTop, marginRight, marginLeft, marginBottom } = calculateDimensions(
@@ -50,8 +51,9 @@ export function FitnessEvolutionCard() {
 
   return (
     <div className={styles.fitnessEvolutionCard}>
-      {loadingAndErrorComponent}
-      {data && (
+      {isLoading || error ? (
+        <LoadingAndError isLoading={isLoading} error={error} />
+      ) : sessionsActivity ? (
         <>
           <CustomLegend />
           {/* Render the Bar Chart */}
@@ -76,8 +78,8 @@ export function FitnessEvolutionCard() {
               dx={43}
               tickLine={false}
               axisLine={false}
-              domain={[minKg - 1, maxKg + 1]}
-              ticks={[minKg - 1, middleValue, maxKg + 1]}
+              domain={[minimumKilogram - 1, maximumKilogram + 1]}
+              ticks={[minimumKilogram - 1, middleValue, maximumKilogram + 1]}
               fontSize='14px'
             />
             <YAxis yAxisId='left' orientation='left' hide={true} />
@@ -97,7 +99,7 @@ export function FitnessEvolutionCard() {
             />
           </BarChart>
         </>
-      )}
+      ) : null}
     </div>
   );
 }

@@ -6,9 +6,10 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import { DataProvider } from './utils/DataContext.jsx';
 import { Header } from './components/Header/Header';
 import { Sidebar } from './components/Sidebar/Sidebar';
-import { SelectionPage } from './pages/SelectionPage/SelectionPage';
+import { SelectionPage } from './pages/SelectionPage/selectionPage';
 import { Home } from './pages/Home/Home';
 
 import './utils/style/globalStyle.css';
@@ -19,10 +20,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Router>
       <Header />
       <Sidebar />
-      <Routes>
-        <Route path='/' element={<SelectionPage />} />
-        <Route path='/home/:source/:userId' element={<Home />} />
-      </Routes>
+      <DataProvider>
+        <Routes>
+          <Route path='/' element={<SelectionPage />} />
+          <Route path='/home/:source/:userId' element={<Home />} />
+        </Routes>
+      </DataProvider>
     </Router>
   </StrictMode>
 );

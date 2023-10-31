@@ -6,9 +6,13 @@
  */
 
 import { useState, useEffect } from 'react';
-import { LoadingAndError } from '../../components/Common/LoadingAndError';
 
-export function useFetch(urlOrFunction, userId) {
+import { getUser } from '../../../mocks/user.js';
+import { getUserActivity } from '../../../mocks/userActivity.js';
+import { getUserAverageSessions } from '../../../mocks/userAverageSessions.js';
+import { getUserPerformance } from '../../../mocks/userPerformance.js';
+
+export function useFetch(source, userId) {
   // State variables to hold fetched data, loading status, and any error messages
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -19,20 +23,65 @@ export function useFetch(urlOrFunction, userId) {
     let isMounted = true;
     setLoading(true);
 
+    // Consolidate data from different fetches or mock functions
+    const consolidateData = (
+      userData,
+      userActivityData,
+      userAverageSessionsData,
+      userPerformanceData
+    ) => {
+      const { sessions: sessionsActivity, ...restOfUserActivity } = userActivityData.data;
+      const { sessions: sessionsAverage, ...restOfUserAverageSessions } =
+        userAverageSessionsData.data;
+      return {
+        ...userData.data,
+        ...restOfUserActivity,
+        sessionsActivity,
+        ...restOfUserAverageSessions,
+        sessionsAverage,
+        ...userPerformanceData.data,
+      };
+    };
+
     // Function to fetch data asynchronously
     async function fetchData() {
       try {
         let response;
-        // Check if the input is a function or a URL
-        if (typeof urlOrFunction === 'function') {
-          response = await urlOrFunction(userId);
-        } else {
-          const fetchResponse = await fetch(urlOrFunction);
-          response = await fetchResponse.json();
+        if (source === 'mock') {
+          const userIdNumber = Number(userId);
+          const results = await Promise.all([
+            getUser(userIdNumber),
+            getUserActivity(userIdNumber),
+            getUserAverageSessions(userIdNumber),
+            getUserPerformance(userIdNumber),
+          ]);
+
+          response = consolidateData(...results);
+        } else if (source === 'api') {
+          const userData = await fetch(`http://localhost:3000/user/${userId}`).then((res) =>
+            res.json()
+          );
+          const userActivityData = await fetch(
+            `http://localhost:3000/user/${userId}/activity`
+          ).then((res) => res.json());
+          const userAverageSessionsData = await fetch(
+            `http://localhost:3000/user/${userId}/average-sessions`
+          ).then((res) => res.json());
+          const userPerformanceData = await fetch(
+            `http://localhost:3000/user/${userId}/performance`
+          ).then((res) => res.json());
+
+          response = consolidateData(
+            userData,
+            userActivityData,
+            userAverageSessionsData,
+            userPerformanceData
+          );
         }
+
         // Update state only if the component is still mounted
         if (isMounted) {
-          setData(response.data);
+          setData(response);
         }
       } catch (err) {
         console.error(err); // Log the error to the console
@@ -52,10 +101,7 @@ export function useFetch(urlOrFunction, userId) {
     return () => {
       isMounted = false;
     };
-  }, [urlOrFunction, userId]);
+  }, [source, userId]);
 
-  // Generate the loading and error component
-  const loadingAndErrorComponent = <LoadingAndError isLoading={isLoading} error={error} />;
-
-  return { data, loadingAndErrorComponent };
+  return { data, isLoading, error };
 }
