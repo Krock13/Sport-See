@@ -20,7 +20,7 @@ export const SelectionPage = () => {
 
   return (
     <div className={styles.selectionPage}>
-      <h2>Choisis ta source et ton userId :</h2>
+      <h2>Choisir la source et le userId :</h2>
       <button onClick={() => handleChoice('mock', 1)}>Mock: User1</button>
       <button onClick={() => handleChoice('mock', 2)}>Mock: User2</button>
       <button onClick={() => handleChoice('api', '12')}>API: User1</button>

@@ -1,0 +1,15 @@
+.loading {
+  color: blue;
+}
+
+.error {
+  padding: 1em;
+  border-radius: 5px;
+  color: red;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

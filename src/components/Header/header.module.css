@@ -30,6 +30,11 @@ header {
   }
 }
 
+.headerList li a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .logo {
   position: absolute;
   top: calc(18 / 1024 * 100vh);

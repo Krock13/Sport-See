@@ -6,6 +6,8 @@ import logo from '../../assets/logo_SportSee.png';
 
 import styles from './header.module.css';
 
+import { Link } from 'react-router-dom';
+
 export function Header() {
   return (
     <header>
@@ -15,7 +17,9 @@ export function Header() {
       {/* Main navigation */}
       <nav aria-label='Navigation principale'>
         <ul className={styles.headerList}>
-          <li>Accueil</li>
+          <li>
+            <Link to='/'>Accueil</Link>
+          </li>
           <li>Profil</li>
           <li>Réglages</li>
           <li>Communauté</li>
