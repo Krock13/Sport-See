@@ -40,6 +40,7 @@ export function ScoreCard() {
           <h3 className={styles.titleScoreCard}>Score</h3>
           <ResponsiveContainer width='100%' height='100%'>
             <PieChart>
+              {/* Main Pie to render the score gauge */}
               <Pie
                 data={chartData}
                 dataKey='value'
@@ -51,9 +52,23 @@ export function ScoreCard() {
                 isAnimationActive={false}
               >
                 {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={index === 0 ? '#FF0000' : '#FBFBFB'} />
+                  // Renders each segment of the gauge, applying no stroke to remove the border effect
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={index === 0 ? '#FF0000' : 'transparent'}
+                    stroke='none'
+                  />
                 ))}
               </Pie>
+              {/* Overlay Pie to render the white circle covering the gauge's center */}
+              <Pie
+                data={[{ value: 100 }]}
+                dataKey='value'
+                innerRadius={0}
+                outerRadius='70%'
+                fill='white'
+                isAnimationActive={false}
+              />
             </PieChart>
           </ResponsiveContainer>
           <div className={styles.targetContainer}>
