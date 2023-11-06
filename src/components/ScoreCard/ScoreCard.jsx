@@ -17,9 +17,12 @@ export function ScoreCard() {
 
   // Generates chart data based on the user's score.
   const getChartData = () => {
-    if (!contextData) return [{ name: 'Score par défaut', value: 0 }];
+    if (!contextData) return [{ name: 'Score par défaut', value: 100 }];
     const scoreValue = contextData.todayScore || contextData.score;
-    return [{ name: 'Score du jour', value: scoreValue * 100 }];
+    return [
+      { name: 'Score du jour', value: scoreValue * 100 },
+      { name: 'Reste', value: (1 - scoreValue) * 100 },
+    ];
   };
 
   // Renders loading or error components based on current state.
@@ -41,14 +44,15 @@ export function ScoreCard() {
                 data={chartData}
                 dataKey='value'
                 startAngle={220}
-                endAngle={0}
+                endAngle={-220}
                 innerRadius='70%'
                 outerRadius='80%'
-                fill='#FF0000'
                 cornerRadius={10}
                 isAnimationActive={false}
               >
-                <Cell key={'cell-0'} fill={'#FF0000'} />
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={index === 0 ? '#FF0000' : '#FBFBFB'} />
+                ))}
               </Pie>
             </PieChart>
           </ResponsiveContainer>

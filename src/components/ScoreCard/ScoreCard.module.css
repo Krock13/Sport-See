@@ -16,9 +16,10 @@
 
 .targetContainer {
   position: absolute;
-  top: 50%;
+  top: 56%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-weight: 700;
 }
 
 .targetPercent {
@@ -29,4 +30,5 @@
 .targetText {
   font-size: calc(14 * 100vw / 1440);
   text-align: center;
+  margin-top: 5px;
 }
