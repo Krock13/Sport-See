@@ -1,6 +1,7 @@
 /**
  * Custom React hook for fetching data.
- * @param {string|function} urlOrFunction - The URL to fetch from or a function that returns data.
+ * @param {string} source - The source from which to fetch the data.
+ *                          Accepts 'mock' for mock data or 'api' for API data.
  * @param {number} userId - The user ID for fetching user-specific data.
  * @returns {object} An object containing the fetched data, loading status, and any error message.
  */
