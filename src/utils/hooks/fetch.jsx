@@ -6,7 +6,8 @@
  * @returns {object} An object containing the fetched data, loading status, and any error message.
  */
 
-import { useState, useEffect } from 'react';
+// Custom React hook for fetching data.
+import { useState, useEffect, useRef } from 'react';
 
 import { getUser } from '../../../mocks/user.js';
 import { getUserActivity } from '../../../mocks/userActivity.js';
@@ -18,6 +19,19 @@ export function useFetch(source, userId) {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // useRef to avoid refetching data after an unwanted state change
+  const shouldRefetch = useRef(false);
+
+  // Function to reset error messages
+  const resetError = () => setError(null);
+
+  // Function to trigger a data reload
+  const refetch = () => {
+    shouldRefetch.current = true;
+    resetError();
+    setLoading(true);
+  };
 
   useEffect(() => {
     // Flag to prevent state updates after the component has been unmounted
@@ -104,5 +118,5 @@ export function useFetch(source, userId) {
     };
   }, [source, userId]);
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, resetError, refetch };
 }

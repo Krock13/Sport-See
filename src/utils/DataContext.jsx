@@ -34,7 +34,7 @@ export const DataProvider = ({ children }) => {
   const [source, setSource] = useState('mock');
   const [userId, setUserId] = useState(1);
 
-  const { data: fetchedData, isLoading, error } = useFetch(source, userId);
+  const { data: fetchedData, isLoading, error, resetError, refetch } = useFetch(source, userId);
 
   useEffect(() => {
     setData(fetchedData);
@@ -51,6 +51,8 @@ export const DataProvider = ({ children }) => {
         setUserId,
         isLoading,
         error,
+        resetError,
+        refetch,
       }}
     >
       {children}
