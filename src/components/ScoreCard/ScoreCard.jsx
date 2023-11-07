@@ -15,13 +15,13 @@ import styles from './scoreCard.module.css';
 export function ScoreCard() {
   const { data: contextData, isLoading, error } = useData();
 
-  // Generates chart data based on the user's score.
+  // Generates chart data based on the user's score and formats it to have only two decimal places.
   const getChartData = () => {
     if (!contextData) return [{ name: 'Score par défaut', value: 100 }];
     const scoreValue = contextData.todayScore || contextData.score;
     return [
-      { name: 'Score du jour', value: scoreValue * 100 },
-      { name: 'Reste', value: (1 - scoreValue) * 100 },
+      { name: 'Score du jour', value: parseFloat((scoreValue * 100).toFixed(2)) },
+      { name: 'Reste', value: parseFloat(((1 - scoreValue) * 100).toFixed(2)) },
     ];
   };
 
